@@ -1,21 +1,25 @@
-# Официальный образ Python от DockerHub
-FROM python:3.10-slim-buster
+#FROM python:3.9
 
-# Устанавливаем зависимости, которые необходимы для работы Django
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        gcc \
+# Установка зависимостей
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
         python3-dev \
         libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+        libjpeg-dev \
+        libffi-dev \
+        libssl-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Установка зависимостей Python, необходимых для работы приложения
+# Установка зависимостей Python
+RUN pip install --upgrade pip
 COPY requirements.txt /requirements.txt
-RUN pip install --no-cache-dir -r /requirements.txt
+RUN pip install -r /requirements.txt
 
-# Копирование всего приложения в контейнер
-COPY . /app
+# Копирование приложения в Docker-образ
 WORKDIR /app
+COPY . /app
 
-# Запуск приложения при старте контейнера
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Запуск приложения
+CMD python manage.py runserver 0.0.0.0:8000
