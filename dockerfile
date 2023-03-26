@@ -1,25 +1,14 @@
-#FROM python:3.9
+# Use the official Python image as the base image
+FROM python:3.10
 
-# Установка зависимостей
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        build-essential \
-        python3-dev \
-        libpq-dev \
-        libjpeg-dev \
-        libffi-dev \
-        libssl-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Установка зависимостей Python
-RUN pip install --upgrade pip
-COPY requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
-
-# Копирование приложения в Docker-образ
+# Set the working directory in the container
 WORKDIR /app
+
+# Copy the application files into the working directory
 COPY . /app
 
-# Запуск приложения
-CMD python manage.py runserver 0.0.0.0:8000
+# Install the application dependencies
+RUN pip install -r requirements.txt
+
+# Define the entry point for the container
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
