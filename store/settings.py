@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)1-ipim(1yaty-_t#48m(%!$)%jmh5jv&nrl!5r4peouabgai6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ALLOWED_HOSTS = ['example.com', 'www.example.com', 'fuckcray1-xiomi2k18.b4a.run']
 
 # Application definition
 
