@@ -2,10 +2,10 @@
 FROM python:3.10
 
 # Set the working directory in the container
-WORKDIR /qaz
+WORKDIR /app
 
 # Copy the application files into the working directory
-COPY . /qaz
+COPY . /app
 
 # Install the application dependencies
 RUN pip install -r requirements.txt
